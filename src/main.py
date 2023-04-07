@@ -13,3 +13,6 @@ url_vacancy = f'https://hh.ru/vacancy/{id_vacancy}'
 print(url_vacancy)
 
 
+
+
+
