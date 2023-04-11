@@ -12,20 +12,19 @@ class API(ABC):
 
 
 class HeadHunterAPI(API):
-    def __init__(self):
-        self.params = None
-        self.vacancies = None
-        self.response_data = None
-        self.response_url = None
-
-    def uploading(self, *args):
+    def __init__(self, *args):
         self.params = {'text': args,
                        'page': 1,
-                       'per_page': 100
+                       'per_page': 50,
+                       'area': 113,
+                       'currency': 'RUR',
+                       'only_with_salary': True,
                        }
         self.response_url = requests.get('https://api.hh.ru/vacancies', params=self.params)
         self.response_data = json.loads(self.response_url.text)
         self.vacancies = self.response_data['items']
+
+    def uploading(self, *args):
         return self.vacancies
 
 
