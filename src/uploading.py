@@ -11,7 +11,7 @@ class API(ABC):
         pass
 
 
-class HeadHunterAPI(API, ABC):
+class HeadHunterAPI(API):
     def __init__(self):
         self.params = None
         self.vacancies = None
@@ -29,7 +29,7 @@ class HeadHunterAPI(API, ABC):
         return self.vacancies
 
 
-class SuperJobAPI(API, ABC):
+class SuperJobAPI(API):
     API_KEY = os.environ.get('API-KEY')
     KEY = {'X-Api-App-Id': API_KEY}
 
@@ -41,7 +41,11 @@ class SuperJobAPI(API, ABC):
         self.response_url = None
 
     def uploading(self, *args):
-        self.params = {'keywords': args}
+        self.params = [
+            ("keywords", [("srws", 1), ("skwc", "particular"), ("keys", args)]),
+            ("period", 7),
+            ("count", 100)
+        ]
         self.response_url = 'https://api.superjob.ru/2.0/vacancies'
         self.response = requests.get(self.response_url, headers=self.KEY, params=self.params)
         self.response_data = json.loads(self.response.text)
@@ -49,5 +53,3 @@ class SuperJobAPI(API, ABC):
         return self.vacancies
 
 
-url = HeadHunterAPI()
-print(url.uploading("Python"))
