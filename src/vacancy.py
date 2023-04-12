@@ -1,44 +1,42 @@
-from src.uploading import HeadHunterAPI
 import json
+from abc import ABC, abstractmethod
 
 
-class JSONSaver:
-    def __init__(self):
-        self.test = None
-        self.discharge = None
-
-    def add_vacancy(self, word):
-        self.discharge = HeadHunterAPI()
-        self.test = self.discharge.uploading(word)
-        with open('data.json', 'w', encoding='utf-8') as file:
-            json.dump(self.test, file, indent=4, ensure_ascii=False)
+class Vacancy(ABC):
+    @abstractmethod
+    def vacances(self):
+        pass
 
 
-# class Vacancy(ABC):
-#     @abstractmethod
-#     def vacances(self):
-#         pass
+class VacancyHH(Vacancy):
+
+    def vacances(self):
+        with open('hhData.json', 'r') as file:
+            self.vacancy_hh = json.load(file)
+            for vacancy in self.vacancy_hh:
+                if vacancy["salary"]["currency"] != "RUR":
+                    continue
+                if vacancy["salary"]["from"] is None:
+                    vacancy["salary"]["from"] = "<не указано>"
+                else:
+                    vacancy["salary"]["from"] = vacancy["salary"]["from"]
+                if vacancy["salary"]["to"] is None:
+                    vacancy["salary"]["to"] = "<не указано>"
+                else:
+                    vacancy["salary"]["to"] = vacancy["salary"]["to"]
+                print(f'{vacancy["employer"]["name"]} ---- {vacancy["name"]} \n'
+                      f'Оплата от {vacancy["salary"]["from"]} до {vacancy["salary"]["to"]} '
+                      f'{vacancy["salary"]["currency"]} \n'
+                      f'Ссылка {vacancy["alternate_url"]} \n'
+                      f'\n'
+                      f'{("="*200)}')
 
 
-# class VacancyHH(Vacancy):
-#
-#     def __init__(self, *args):
-#         self.vacancy_hh = HeadHunterAPI().uploading(args)
-#         self.job_title = self.vacancy_hh[0]['name']
-#         self.salary_max = self.vacancy_hh[0]['salary']['to']
-#         self.salary_min = self.vacancy_hh[0]['salary']['from']
-#         self.employee_requirement = self.vacancy_hh[0]['snippet']['requirement']
-#         self.id_vacancy = self.vacancy_hh[0]['id']
-#         self.url_vacancy = f'https://hh.ru/vacancy/{self.id_vacancy}'
-#
-#     def vacances(self, *args):
-#         return self.vacancy_hh
+class VacancySJ(Vacancy):
 
-#
-# class VacancySJ(Vacancy):
-#
-#     def vacances(self):
-#         pass
+    def vacances(self):
+        pass
 
-tests = JSONSaver()
-print(tests.add_vacancy("Врач"))
+
+vac = VacancyHH()
+print(vac.vacances())

@@ -16,15 +16,15 @@ import os
 # print(response_data)
 
 
-API_KEY = os.environ.get('API-KEY')
-KEY = {'X-Api-App-Id': API_KEY}
-response_url = 'https://api.superjob.ru/2.0/vacancies'
-response = requests.get(response_url, headers=KEY)
-response_data = json.loads(response.text)
-url_vacancy = response_data['objects'][0]['link']
-job_title = response_data['objects'][0]['profession']
-salary_min = response_data['objects'][0]['payment_from']
-salary_max = response_data['objects'][0]['payment_to']
-employee_requirement = response_data['objects'][0]['candidat']
-
-print(response)
+# API_KEY = os.environ.get('API-KEY')
+# KEY = {'X-Api-App-Id': API_KEY}
+# response_url = 'https://api.superjob.ru/2.0/vacancies'
+# response = requests.get(response_url, headers=KEY)
+# response_data = json.loads(response.text)
+# url_vacancy = response_data['objects'][0]['link']
+# job_title = response_data['objects'][0]['profession']
+# salary_min = response_data['objects'][0]['payment_from']
+# salary_max = response_data['objects'][0]['payment_to']
+# employee_requirement = response_data['objects'][0]['candidat']
+#
+# print(response)
