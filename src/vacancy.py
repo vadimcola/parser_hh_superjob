@@ -40,9 +40,15 @@ class VacancyHH(Vacancy):
 
 class VacancySJ(Vacancy):
 
+    def __init__(self):
+        self.vacancy = None
+
     def vacances(self):
-        pass
+        with open('sjData.json', 'r', encoding='utf-8') as file:
+            self.vacancy = json.load(file)
+            for vac in self.vacancy:
+                print(vac['profession'])
 
 
-v = VacancyHH()
+v = VacancySJ()
 v.vacances()
