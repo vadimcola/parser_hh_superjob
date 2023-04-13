@@ -42,3 +42,4 @@ class VacancySJ(Vacancy):
 
 vac = VacancyHH()
 print(vac.vacances())
+

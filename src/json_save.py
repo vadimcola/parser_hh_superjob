@@ -17,3 +17,4 @@ class JSONSaver:
 
 vac = JSONSaver()
 vac.add_vacancy("Python")
+
