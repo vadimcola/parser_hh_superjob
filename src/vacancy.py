@@ -1,6 +1,8 @@
 import json
 from abc import ABC, abstractmethod
-from operator import itemgetter
+
+from src.utils import sort_salary_hh
+
 
 class Vacancy(ABC):
     @abstractmethod
@@ -10,28 +12,30 @@ class Vacancy(ABC):
 
 class VacancyHH(Vacancy):
 
+    def __init__(self):
+        self.vacancy_hh = None
+        self.vacancy = None
+
     def vacances(self):
         with open('hhData.json', 'r', encoding='utf-8') as file:
             self.vacancy = json.load(file)
-            #self.vacancy_hh = sorted(self.vacancy, key=lambda data: (data["salary"]["to"] is None, data["salary"]["to"]), reverse = True)
-            self.vacancy_hh
-            for vacancy in self.vacancy_hh:
-                if vacancy["salary"]["currency"] != "RUR":
+            self.vacancy_hh = sort_salary_hh(self.vacancy)
+            for vac in self.vacancy_hh:
+                if vac["salary"]["currency"] != "RUR":
                     continue
-                if vacancy["salary"]["from"] is None:
-                    vacancy["salary"]["from"] = "<не указано>"
+                if vac["salary"]["from"] is None:
+                    vac["salary"]["from"] = "<не указано>"
                 else:
-                    vacancy["salary"]["from"] = vacancy["salary"]["from"]
-                if vacancy["salary"]["to"] is None:
-                    vacancy["salary"]["to"] = "<не указано>"
+                    vac["salary"]["from"] = vac["salary"]["from"]
+                if vac["salary"]["to"] is None:
+                    vac["salary"]["to"] = "<не указано>"
                 else:
-                    vacancy["salary"]["to"] = vacancy["salary"]["to"]
-                print(f'{vacancy["employer"]["name"]} ---- {vacancy["name"]} \n'
-                      f'Оплата от {vacancy["salary"]["from"]} до {vacancy["salary"]["to"]} '
-                      f'{vacancy["salary"]["currency"]} \n'
-                      f'Ссылка {vacancy["alternate_url"]} \n'
-                      f'ID {vacancy["id"]}\n'
-                      f'{("="*200)}')
+                    vac["salary"]["to"] = vac["salary"]["to"]
+                print(f'{vac["employer"]["name"]} ---- {vac["name"]} \n'
+                      f'Оплата от {vac["salary"]["from"]} до {vac["salary"]["to"]} '
+                      f'{vac["salary"]["currency"]} \n'
+                      f'Ссылка {vac["alternate_url"]} \n'
+                      f'ID {vac["id"]}\n {("=" * 200)}')
 
 
 class VacancySJ(Vacancy):
@@ -40,6 +44,5 @@ class VacancySJ(Vacancy):
         pass
 
 
-vac = VacancyHH()
-print(vac.vacances())
-
+v = VacancyHH()
+v.vacances()
