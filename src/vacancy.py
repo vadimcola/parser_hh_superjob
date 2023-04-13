@@ -1,6 +1,6 @@
 import json
 from abc import ABC, abstractmethod
-
+from operator import itemgetter
 
 class Vacancy(ABC):
     @abstractmethod
@@ -11,8 +11,10 @@ class Vacancy(ABC):
 class VacancyHH(Vacancy):
 
     def vacances(self):
-        with open('hhData.json', 'r') as file:
-            self.vacancy_hh = json.load(file)
+        with open('hhData.json', 'r', encoding='utf-8') as file:
+            self.vacancy = json.load(file)
+            #self.vacancy_hh = sorted(self.vacancy, key=lambda data: (data["salary"]["to"] is None, data["salary"]["to"]), reverse = True)
+            self.vacancy_hh
             for vacancy in self.vacancy_hh:
                 if vacancy["salary"]["currency"] != "RUR":
                     continue
@@ -28,7 +30,7 @@ class VacancyHH(Vacancy):
                       f'Оплата от {vacancy["salary"]["from"]} до {vacancy["salary"]["to"]} '
                       f'{vacancy["salary"]["currency"]} \n'
                       f'Ссылка {vacancy["alternate_url"]} \n'
-                      f'\n'
+                      f'ID {vacancy["id"]}\n'
                       f'{("="*200)}')
 
 

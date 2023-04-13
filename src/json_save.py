@@ -12,6 +12,7 @@ class JSONSaver:
         self.test = self.discharge.uploading(word)
         with open('hhData.json', 'w', encoding='utf-8') as file:
             json.dump(self.test, file, indent=4, ensure_ascii=False)
+            print("Данные выгружены")
 
 
 vac = JSONSaver()
