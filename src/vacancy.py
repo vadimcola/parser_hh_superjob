@@ -57,5 +57,4 @@ class VacancySJ(Vacancy):
                       f"Ссылка {vac['link']} \n{('=' * 200)}")
 
 
-v = VacancySJ()
-v.vacances()
+

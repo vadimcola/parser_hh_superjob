@@ -36,5 +36,3 @@ class JSONSaverSJ(JSONSaver):
             print("Данные выгружены")
 
 
-v = JSONSaverSJ()
-v.add_vacancy("Python developer")
