@@ -6,12 +6,18 @@ import requests
 
 
 class API(ABC):
+    '''
+     абстрактный класс для работы с API сайтов  вакансиями
+    '''
     @abstractmethod
     def uploading(self):
         pass
 
 
 class HeadHunterAPI(API):
+    '''
+    Реализован классы, наследующиеся от абстрактного класса, для работы с конкретными платформами
+    '''
     def __init__(self):
         self.params = None
         self.vacancies = None
@@ -30,6 +36,9 @@ class HeadHunterAPI(API):
 
 
 class SuperJobAPI(API):
+    '''
+    Реализованы классы, наследующиеся от абстрактного класса, для работы с конкретными платформами
+    '''
     API_KEY = os.environ.get('API-KEY')
     KEY = {'X-Api-App-Id': API_KEY}
 

@@ -5,12 +5,18 @@ import json
 
 
 class JSONSaver(ABC):
+    '''
+    абстрактный класс, который обязывает реализовать методы для добавления вакансий в файл
+    '''
     @abstractmethod
     def add_vacancy(self):
         pass
 
 
 class JSONSaverHH(JSONSaver):
+    '''
+    класс для сохранения информации о вакансиях в JSON-файл
+    '''
     def __init__(self):
         self.test = None
         self.discharge = None
@@ -24,6 +30,9 @@ class JSONSaverHH(JSONSaver):
 
 
 class JSONSaverSJ(JSONSaver):
+    '''
+    класс для сохранения информации о вакансиях в JSON-файл
+    '''
     def __init__(self):
         self.test = None
         self.discharge = None
