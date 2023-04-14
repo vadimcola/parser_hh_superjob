@@ -1,7 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 
-from src.utils import sort_salary_hh
+from src.utils import sort_salary_hh, sort_salary_sj
 
 
 class Vacancy(ABC):
@@ -46,8 +46,15 @@ class VacancySJ(Vacancy):
     def vacances(self):
         with open('sjData.json', 'r', encoding='utf-8') as file:
             self.vacancy = json.load(file)
-            for vac in self.vacancy:
-                print(vac['profession'])
+            self.vacancy_sj = sort_salary_sj(self.vacancy)
+            for vac in self.vacancy_sj:
+                if vac['payment_from'] == 0:
+                    vac['payment_from'] = '<не указано>'
+                if vac['payment_to'] == 0:
+                    vac['payment_to'] = '<не указано>'
+                print(f"{vac['firm_name']} ---- {vac['profession']}\n"
+                      f"Оплата от {vac['payment_from']} до {vac['payment_to']} {vac['currency']}\n"
+                      f"Ссылка {vac['link']} \n{('=' * 200)}")
 
 
 v = VacancySJ()
