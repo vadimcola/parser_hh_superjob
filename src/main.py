@@ -12,6 +12,9 @@ def main():
             vac = JSONSaverHH()
         elif web_platform.upper() == 'SJ':
             vac = JSONSaverSJ()
+        else:
+            print("Ошибка ввода!!!")
+            continue
         profession = input("Введите название профессии ... ")
         vac.add_vacancy(profession)
 
@@ -20,14 +23,25 @@ def main():
         elif web_platform.upper() == 'SJ':
             print_vac = VacancySJ()
         print_vac.vacances()
-        print(f"{'~' * 200}\n{'~' * 200}")
-        answer = input("Если хотите продолжить введите 'Y', если нет введите 'N' ...")
-        if answer.upper() == 'Y':
-            continue
-        elif answer.upper() == 'N':
-            print("Спасибо !!!")
-            break
-
+        while True:
+            answer = input(f"Теперь вам доступны следующие команды для отображения полученной информации:\n"
+                           f"1: Получить расширенную информацию о вакансии по ID\n"
+                           f"2: Показать топ 10 вакансий по заработной плате\n"
+                           f"3: Возврат к выбору платформы\n"
+                           f"4: Выход из программы\n"
+                           f"   Введите цифру команды ...")
+            if answer not in ('1', '2', '3', '4'):
+                print("!!!! Ошибка ввода !!!!")
+                continue
+            elif answer == '1':
+                id_vac = input("Введите ID вакансии ...")
+                print_vac.vacances_id(id_vac)
+            elif answer == '2':
+                print_vac.vacances_top()
+            elif answer == "3":
+                break
+            else:
+                exit("Спасибо !!!!")
 
 if __name__ == "__main__":
     main()
