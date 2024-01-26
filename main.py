@@ -1,4 +1,4 @@
-from src.json_save import JSONSaverSJ, JSONSaverHH
+from src.json_save import JSONSaverHH, JSONSaverSJ
 from src.vacancy import VacancyHH, VacancySJ
 
 
@@ -42,6 +42,7 @@ def main():
                 break
             else:
                 exit("Спасибо !!!!")
+
 
 if __name__ == "__main__":
     main()
